@@ -20,7 +20,7 @@ public class ConjugatorPortuguese {
 				VerbForm.PLUP_SUBJ, VerbForm.FUT_SUBJ, VerbForm.FUT_PERF_SUBJ,
 
 				VerbForm.IMP_AFF, VerbForm.IMP_NEG, VerbForm.PERS_INF };
-		String[][] conjugatedVerb = conjugate("desfazer", allForms, false);
+		String[][] conjugatedVerb = conjugate("abrir", allForms, false);
 		for (int i = 0; i < conjugatedVerb.length; i++) {
 			System.out.println(allForms[i].toString());
 			for (int j = 0; j < conjugatedVerb[i].length; j++) {
@@ -249,19 +249,13 @@ public class ConjugatorPortuguese {
 			verbClass = VerbClass.OLIR;
 			String stem2 = infinitive.substring(0, verbLength - 2);
 			stem = infinitive.substring(0, verbLength - 4);
-			gerund = stem2 + "indo";
-			participle = stem2 + "ido";
 			presSubjStem = DEF + stem + "ul";
 			impSubjStem = stem2;
-			futSubjStem = infinitive;
 		} else if (infinitive.matches("explodir|latir")) {
 			verbClass = VerbClass.ODIR_ATIR;
 			stem = infinitive.substring(0, verbLength - 2);
-			gerund = stem + "indo";
-			participle = stem + "ido";
 			presSubjStem = DEF + stem;
 			impSubjStem = stem;
-			futSubjStem = infinitive;
 //		} else if (infinitive.matches("abrir|reabrir")) {
 		} else if (matches(infinitive, verbLength, "abrir")) {
 			verbClass = VerbClass.ABRIR;
@@ -270,7 +264,6 @@ public class ConjugatorPortuguese {
 			participle = stem + "aberto";
 			presSubjStem = stem + "abr";
 			impSubjStem = stem + "abr";
-			futSubjStem = stem + "abrir";
 			stem = stem + "abr";
 		} else if (infinitive.matches(
 				"ter|abster|conter|suster|ater|deter|entreter|manter|obter|reter")) {
@@ -301,6 +294,8 @@ public class ConjugatorPortuguese {
 				"ansiar|incendiar|mediar|odiar|remediar|intermediar")) {
 			verbClass = VerbClass.IAR;
 			stem = infinitive.substring(0, verbLength - 3);
+			presSubjStem = stem + "ei";
+			impSubjStem = stem + "i";
 			// } else if
 			// (infinitive.matches("antepor|compor|dispor|opor|propor|supor|apor|contrapor|decompor|depor|descompor|expor|interpor|justapor|pospor|pressupor|repor|sobrepor|transpor"))
 			// {
@@ -476,7 +471,7 @@ public class ConjugatorPortuguese {
 		return new VerbData(verbClass, isArEndings, stem,
 				eAndIStem == null ? stem : eAndIStem,
 				aAndOStem == null ? stem : aAndOStem, presSubjStem, impSubjStem,
-				futSubjStem,
+				futSubjStem == null ? infinitive : futSubjStem,
 				futAndCondStem == null ? infinitive : futAndCondStem,
 				participle, gerund);
 	}
@@ -895,7 +890,8 @@ public class ConjugatorPortuguese {
 			return new String[] { stem + "faço", stem + "fazes", stem + "faz",
 					stem + "fazemos", stem + "fazeis", stem + "fazem" };
 		case IAR:
-			break;
+			return new String[] { stem + "eio", stem + "eias", stem + "eia",
+					stem + "iamos", stem + "iais", stem + "eiam" };
 		case POR:
 			break;
 		case DIZER:
@@ -1029,7 +1025,9 @@ public class ConjugatorPortuguese {
 			return new String[] { stem + "fiz", stem + "fizeste", stem + "fez",
 					stem + "fizemos", stem + "fizestes", stem + "fizeram" };
 		case IAR:
-			break;
+			return new String[] { stem + "iei", stem + "iaste", stem + "iou",
+					stem + "iamos" /* alternative with accent */,
+					stem + "iastes", stem + "iaram" };
 		case POR:
 			break;
 		case DIZER:
@@ -1166,7 +1164,8 @@ public class ConjugatorPortuguese {
 					stem + "fazia", stem + "fazíamos", stem + "fazíeis",
 					stem + "faziam" };
 		case IAR:
-			break;
+			return new String[] { stem + "iava", stem + "iavas", stem + "iava",
+					stem + "iávamos", stem + "iáveis", stem + "iavam" };
 		case POR:
 			break;
 		case DIZER:
@@ -1303,7 +1302,8 @@ public class ConjugatorPortuguese {
 					stem + "fizera", stem + "fizéramos", stem + "fizéreis",
 					stem + "fizeram" };
 		case IAR:
-			break;
+			return new String[] { stem + "iara", stem + "iaras", stem + "iara",
+					stem + "iáramos", stem + "iáreis", stem + "iaram" };
 		case POR:
 			break;
 		case DIZER:
@@ -1564,7 +1564,9 @@ public class ConjugatorPortuguese {
 					impSubjStem + "esse", impSubjStem + "éssemos",
 					impSubjStem + "ésseis", impSubjStem + "essem" };
 		case IAR:
-			break;
+			return new String[] { impSubjStem + "asse", impSubjStem + "asses",
+					impSubjStem + "asse", impSubjStem + "ássemos",
+					impSubjStem + "ásseis", impSubjStem + "assem" };
 		case POR:
 			break;
 		case DIZER:
@@ -1686,11 +1688,10 @@ public class ConjugatorPortuguese {
 		case TER: // s+tiv
 		case ABRIR:
 		case FAZER:
+		case IAR:
 			return new String[] { futSubjStem, futSubjStem + "es", futSubjStem,
 					futSubjStem + "mos", futSubjStem + "des",
 					futSubjStem + "em" };
-		case IAR:
-			break;
 		case POR:
 			break;
 		case DIZER:
@@ -1834,7 +1835,8 @@ public class ConjugatorPortuguese {
 					stem + "faça", stem + "façamos", stem + "fazei",
 					stem + "façam" };
 		case IAR:
-			break;
+			return new String[] { null, stem + "eia", stem + "eie",
+					stem + "iemos", stem + "iai", stem + "eiem" };
 		case POR:
 			break;
 		case DIZER:
@@ -1955,10 +1957,9 @@ public class ConjugatorPortuguese {
 		case TER:
 		case FAZER:
 		case VIR:
+		case IAR:
 			return new String[] { infinitive, infinitive + "es", infinitive,
 					infinitive + "mos", infinitive + "des", infinitive + "em" };
-		case IAR:
-			break;
 		case POR:
 			break;
 		case DIZER:
