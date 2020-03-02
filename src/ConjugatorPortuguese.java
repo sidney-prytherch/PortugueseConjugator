@@ -5,7 +5,7 @@ public class ConjugatorPortuguese {
 
 	public static void main(String[] args) {
 		VerbForm[] allForms = new VerbForm[] { VerbForm.PRES_IND,
-				VerbForm.PRET_IND, VerbForm.IMP_IND, VerbForm.SIMP_PLUP_IND,
+				VerbForm.IMP_IND, VerbForm.PRET_IND, VerbForm.SIMP_PLUP_IND,
 				VerbForm.FUT_IND, VerbForm.COND_IND,
 
 				VerbForm.PRES_PERF, VerbForm.PLUP, VerbForm.FUT_PERF,
@@ -547,12 +547,12 @@ public class ConjugatorPortuguese {
 					verbsToReturn[i] = conjugatePresInd(infinitive, verbClass,
 							stem, aAndOStem, eAndIStem);
 					break;
-				case PRET_IND:
-					verbsToReturn[i] = conjugatePretInd(infinitive, verbClass,
-							stem, aAndOStem, eAndIStem);
-					break;
 				case IMP_IND:
 					verbsToReturn[i] = conjugateImpInd(infinitive, verbClass,
+							stem, aAndOStem, eAndIStem);
+					break;
+				case PRET_IND:
+					verbsToReturn[i] = conjugatePretInd(infinitive, verbClass,
 							stem, aAndOStem, eAndIStem);
 					break;
 				case SIMP_PLUP_IND:
@@ -994,9 +994,10 @@ public class ConjugatorPortuguese {
 		return null;
 	}
 
-	private static String[] conjugatePretInd(String infinitive,
+	private static String[] conjugateImpInd(String infinitive,
 			VerbClass verbClass, String stem, String aAndOStem,
 			String eAndIStem) {
+
 		switch (verbClass) {
 		case REG_AR:
 			break;
@@ -1005,29 +1006,30 @@ public class ConjugatorPortuguese {
 		case REG_IR:
 			break;
 		case AIR:
-			return new String[] { stem + "aí", stem + "aíste", stem + "aiu",
-					stem + "aímos", stem + "aístes", stem + "aíram" };
+			return new String[] { stem + "aía", stem + "aías", stem + "aía",
+					stem + "aíamos", stem + "aíeis", stem + "aíam" };
 		case OLIR:
-			return new String[] { stem + "oli", stem + "oliste", stem + "oliu",
-					stem + "olimos", stem + "olistes", stem + "oliram" };
+			return new String[] { stem + "olia", stem + "olias", stem + "olia",
+					stem + "olíamos", stem + "olíeis", stem + "oliam" };
 		case ODIR_ATIR:
 		case ABRIR:
-			return new String[] { stem + "i", stem + "iste", stem + "iu",
-					stem + "imos", stem + "istes", stem + "iram" };
+			return new String[] { stem + "ia", stem + "ias", stem + "ia",
+					stem + "íamos", stem + "íeis", stem + "iam" };
 		case TER:
-			return new String[] { stem + "tive", stem + "tiveste",
-					stem + "teve", stem + "tivemos", stem + "tivestes",
-					stem + "tiveram" };
+			return new String[] { stem + "tinha", stem + "tinhas",
+					stem + "tinha", stem + "tínhamos", stem + "tínheis",
+					stem + "tinham" };
 		case VIR:
-			return new String[] { stem + "vim", stem + "vieste", stem + "veio",
-					stem + "viemos", stem + "viestes", stem + "vieram" };
+			return new String[] { stem + "vinha", stem + "vinhas",
+					stem + "vinha", stem + "vínhamos", stem + "vínheis",
+					stem + "vinham" };
 		case FAZER:
-			return new String[] { stem + "fiz", stem + "fizeste", stem + "fez",
-					stem + "fizemos", stem + "fizestes", stem + "fizeram" };
+			return new String[] { stem + "fazia", stem + "fazias",
+					stem + "fazia", stem + "fazíamos", stem + "fazíeis",
+					stem + "faziam" };
 		case IAR:
-			return new String[] { stem + "iei", stem + "iaste", stem + "iou",
-					stem + "iamos" /* alternative with accent */,
-					stem + "iastes", stem + "iaram" };
+			return new String[] { stem + "iava", stem + "iavas", stem + "iava",
+					stem + "iávamos", stem + "iáveis", stem + "iavam" };
 		case POR:
 			break;
 		case DIZER:
@@ -1130,10 +1132,9 @@ public class ConjugatorPortuguese {
 		return null;
 	}
 
-	private static String[] conjugateImpInd(String infinitive,
+	private static String[] conjugatePretInd(String infinitive,
 			VerbClass verbClass, String stem, String aAndOStem,
 			String eAndIStem) {
-
 		switch (verbClass) {
 		case REG_AR:
 			break;
@@ -1142,30 +1143,29 @@ public class ConjugatorPortuguese {
 		case REG_IR:
 			break;
 		case AIR:
-			return new String[] { stem + "aía", stem + "aías", stem + "aía",
-					stem + "aíamos", stem + "aíeis", stem + "aíam" };
+			return new String[] { stem + "aí", stem + "aíste", stem + "aiu",
+					stem + "aímos", stem + "aístes", stem + "aíram" };
 		case OLIR:
-			return new String[] { stem + "olia", stem + "olias", stem + "olia",
-					stem + "olíamos", stem + "olíeis", stem + "oliam" };
+			return new String[] { stem + "oli", stem + "oliste", stem + "oliu",
+					stem + "olimos", stem + "olistes", stem + "oliram" };
 		case ODIR_ATIR:
 		case ABRIR:
-			return new String[] { stem + "ia", stem + "ias", stem + "ia",
-					stem + "íamos", stem + "íeis", stem + "iam" };
+			return new String[] { stem + "i", stem + "iste", stem + "iu",
+					stem + "imos", stem + "istes", stem + "iram" };
 		case TER:
-			return new String[] { stem + "tinha", stem + "tinhas",
-					stem + "tinha", stem + "tínhamos", stem + "tínheis",
-					stem + "tinham" };
+			return new String[] { stem + "tive", stem + "tiveste",
+					stem + "teve", stem + "tivemos", stem + "tivestes",
+					stem + "tiveram" };
 		case VIR:
-			return new String[] { stem + "vinha", stem + "vinhas",
-					stem + "vinha", stem + "vínhamos", stem + "vínheis",
-					stem + "vinham" };
+			return new String[] { stem + "vim", stem + "vieste", stem + "veio",
+					stem + "viemos", stem + "viestes", stem + "vieram" };
 		case FAZER:
-			return new String[] { stem + "fazia", stem + "fazias",
-					stem + "fazia", stem + "fazíamos", stem + "fazíeis",
-					stem + "faziam" };
+			return new String[] { stem + "fiz", stem + "fizeste", stem + "fez",
+					stem + "fizemos", stem + "fizestes", stem + "fizeram" };
 		case IAR:
-			return new String[] { stem + "iava", stem + "iavas", stem + "iava",
-					stem + "iávamos", stem + "iáveis", stem + "iavam" };
+			return new String[] { stem + "iei", stem + "iaste", stem + "iou",
+					stem + "iamos" /* alternative with accent */,
+					stem + "iastes", stem + "iaram" };
 		case POR:
 			break;
 		case DIZER:
