@@ -1805,11 +1805,16 @@ public class ConjugatorPortuguese {
 		case AIR:
 			return new String[] { null, stem + "ai", stem + "aia",
 					stem + "aiamos", stem + "aí", stem + "aiam" };
-		case OLIR:
+		case OLIR: /*
+					 * some had alternate forms it seemed that weren't defective
+					 */
 			return new String[] { DEF + stem + "ola", DEF + stem + "olas",
 					DEF + stem + "ola", DEF + stem + "olamos",
 					DEF + stem + "olais", DEF + stem + "olam" };
-		case ODIR_ATIR:
+		case ODIR_ATIR: /*
+						 * some had alternate forms it seemed that weren't
+						 * defective
+						 */
 			return new String[] { DEF + stem + "a", DEF + stem + "as",
 					DEF + stem + "a", DEF + stem + "amos", DEF + stem + "ais",
 					DEF + stem + "am" };
