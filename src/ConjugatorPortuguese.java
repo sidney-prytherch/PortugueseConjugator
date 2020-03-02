@@ -20,7 +20,7 @@ public class ConjugatorPortuguese {
 				VerbForm.PLUP_SUBJ, VerbForm.FUT_SUBJ, VerbForm.FUT_PERF_SUBJ,
 
 				VerbForm.IMP_AFF, VerbForm.IMP_NEG, VerbForm.PERS_INF };
-		String[][] conjugatedVerb = conjugate("antepor", allForms, false);
+		String[][] conjugatedVerb = conjugate("dizer", allForms, false);
 		for (int i = 0; i < conjugatedVerb.length; i++) {
 			System.out.println(allForms[i].toString());
 			for (int j = 0; j < conjugatedVerb[i].length; j++) {
@@ -313,136 +313,424 @@ public class ConjugatorPortuguese {
 		} else if (matches(infinitive, verbLength, "dizer")) {
 			verbClass = VerbClass.DIZER;
 			stem = infinitive.substring(0, verbLength - 5);
+			gerund = stem + "dizendo";
+			participle = stem + "dito";
+			presSubjStem = stem + "dig";
+			impSubjStem = stem + "diss";
+			futSubjStem = stem + "disser";
+			futAndCondStem = stem + "dir";
 		} else if (infinitive.matches("caber")) {
 			verbClass = VerbClass.CABER;
 			stem = "cab";
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// } else if
 			// (infinitive.matches("conseguir|perseguir|prosseguir|seguir|desconseguir|desseguir"))
 			// {
 		} else if (matches(infinitive, verbLength, "seguir")) {
 			verbClass = VerbClass.SEGUIR;
 			stem = infinitive.substring(0, verbLength - 6);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// } else if (infinitive.matches("crer|descrer")) {
 		} else if (matches(infinitive, verbLength, "crer")) {
 			verbClass = VerbClass.CRER;
 			stem = infinitive.substring(0, verbLength - 4);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// } else if
 			// (infinitive.matches("cobrir|descobrir|recobrir|redescobrir")) {
 		} else if (matches(infinitive, verbLength, "encobrir")) {
 			verbClass = VerbClass.COBRIR;
 			stem = infinitive.substring(0, verbLength - 6);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("dar|desdar")) {
 			verbClass = VerbClass.DAR;
 			stem = infinitive.substring(0, verbLength - 3);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("estar")) {
 			verbClass = VerbClass.ESTAR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("gear")) {
 			verbClass = VerbClass.GEAR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("haver")) {
 			verbClass = VerbClass.HAVER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("ir")) {
 			verbClass = VerbClass.IR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("ler|reler|tresler")) {
 			verbClass = VerbClass.LER;
 			stem = infinitive.substring(0, verbLength - 3);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 //		} else if (infinitive.matches("querer|malquerer")) {
 		} else if (matches(infinitive, verbLength, "querer")) {
 			verbClass = VerbClass.QUERER;
 			stem = infinitive.substring(0, verbLength - 6);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("nevar")) {
 			verbClass = VerbClass.NEVAR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("ouvir")) {
 			verbClass = VerbClass.OUVIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("perder")) {
 			verbClass = VerbClass.PERDER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("poder")) {
 			verbClass = VerbClass.PODER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("pôr")) {
 			verbClass = VerbClass.PÔR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("antever|entrever|prever|rever|ver")) {
 			verbClass = VerbClass.VER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			stem = infinitive.substring(0, verbLength - 3);
 		} else if (infinitive.matches("prover")) {
 			verbClass = VerbClass.PROVER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("rir|sorrir")) {
 			verbClass = VerbClass.RIR;
 			stem = infinitive.substring(0, verbLength - 3);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("saber")) {
 			verbClass = VerbClass.SABER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("ser")) {
 			verbClass = VerbClass.SER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("tossir")) {
 			verbClass = VerbClass.TOSSIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("trazer")) {
 			verbClass = VerbClass.TRAZER;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "valer")) {
 			verbClass = VerbClass.VALER;
 			stem = infinitive.substring(0, verbLength - 5);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("engolir")) {
 			verbClass = VerbClass.ENGOLIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// weird one (ortho + stem?)
 		} else if (infinitive.matches("fugir")) {
 			verbClass = VerbClass.FUGIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// radical changing
 		} else if (matches(infinitive, verbLength, "gredir")) {
 			verbClass = VerbClass.GREDIR;
 			stem = infinitive.substring(0, verbLength - 6);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "edir")) {
 			verbClass = VerbClass.EDIR;
 			stem = infinitive.substring(0, verbLength - 4);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("divertir")) {
 			verbClass = VerbClass.DIVERTIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("servir")) {
 			verbClass = VerbClass.SERVIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "entir")) {
 			verbClass = VerbClass.ENTIR;
 			stem = infinitive.substring(0, verbLength - 5);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// weird one
 		} else if (infinitive.matches("saudar")) {
 			verbClass = VerbClass.SAUDAR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 			// weird one
 		} else if (infinitive.matches("reunir")) {
 			verbClass = VerbClass.REUNIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "elir")) {
 			verbClass = VerbClass.ELIR;
 			stem = infinitive.substring(0, verbLength - 4);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("remir")) {
 			verbClass = VerbClass.REMIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "ear")) {
 			verbClass = VerbClass.EAR;
 			stem = infinitive.substring(0, verbLength - 3);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "oibir")) {
 			verbClass = VerbClass.OIBIR;
 			stem = infinitive.substring(0, verbLength - 5);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "prevenir")) {
 			verbClass = VerbClass.PREVENIR;
 			stem = infinitive.substring(0, verbLength - 8);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "erir")) {
 			verbClass = VerbClass.ERIR;
 			stem = infinitive.substring(0, verbLength - 4);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("apoiar|boiar")) {
 			verbClass = VerbClass.OIAR;
 			stem = infinitive.substring(0, verbLength - 3);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "oer")) {
 			verbClass = VerbClass.OER;
 			stem = infinitive.substring(0, verbLength - 3);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "vestir")) {
 			verbClass = VerbClass.VESTIR;
 			stem = infinitive.substring(0, verbLength - 6);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("dormir")) {
 			verbClass = VerbClass.DORMIR;
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "tuir")) {
 			verbClass = VerbClass.TUIR;
 			stem = infinitive.substring(0, verbLength - 4);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "buir")) {
 			verbClass = VerbClass.BUIR;
 			stem = infinitive.substring(0, verbLength - 4);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "struir")) {
 			verbClass = VerbClass.STRUIR;
 			stem = infinitive.substring(0, verbLength - 6);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else if (matches(infinitive, verbLength, "erzir")) {
 			verbClass = VerbClass.ERZIR;
 			stem = infinitive.substring(0, verbLength - 5);
+			gerund = stem + ""; // calculated if blank
+			participle = stem + ""; // calculated if blank
+			presSubjStem = stem + "";
+			impSubjStem = stem + "";
+			futSubjStem = stem + "";
+			futAndCondStem = stem + ""; // infinitive by def
 		} else {
 			verbClass = ending.equals("AR") ? VerbClass.REG_AR
 					: ending.equals("ER") ? VerbClass.REG_ER : VerbClass.REG_IR;
@@ -901,7 +1189,8 @@ public class ConjugatorPortuguese {
 			return new String[] { stem + "ponho", stem + "pões", stem + "põe",
 					stem + "pomos", stem + "pondes", stem + "põem" };
 		case DIZER:
-			break;
+			return new String[] { stem + "digo", stem + "dizes", stem + "diz",
+					stem + "dizemos", stem + "dizeis", stem + "dizem" };
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1041,7 +1330,9 @@ public class ConjugatorPortuguese {
 					stem + "punha", stem + "púnhamos", stem + "púnheis",
 					stem + "punham" };
 		case DIZER:
-			break;
+			return new String[] { stem + "dizia", stem + "dizias",
+					stem + "dizia", stem + "dizíamos", stem + "dizíeis",
+					stem + "diziam" };
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1178,7 +1469,9 @@ public class ConjugatorPortuguese {
 			return new String[] { stem + "pus", stem + "puseste", stem + "pôs",
 					stem + "pusemos", stem + "pusestes", stem + "puseram" };
 		case DIZER:
-			break;
+			return new String[] { stem + "disse", stem + "disseste",
+					stem + "disse", stem + "dissemos", stem + "dissestes",
+					stem + "disseram" };
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1318,7 +1611,9 @@ public class ConjugatorPortuguese {
 					stem + "pusera", stem + "puséramos", stem + "puséreis",
 					stem + "puseram" };
 		case DIZER:
-			break;
+			return new String[] { stem + "dissera", stem + "disseras",
+					stem + "dissera", stem + "disséramos", stem + "disséreis",
+					stem + "disseram" };
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1569,6 +1864,7 @@ public class ConjugatorPortuguese {
 		case VIR: // s+vi
 		case FAZER:
 		case POR:
+		case DIZER:
 			return new String[] { impSubjStem + "esse", impSubjStem + "esses",
 					impSubjStem + "esse", impSubjStem + "éssemos",
 					impSubjStem + "ésseis", impSubjStem + "essem" };
@@ -1576,8 +1872,6 @@ public class ConjugatorPortuguese {
 			return new String[] { impSubjStem + "asse", impSubjStem + "asses",
 					impSubjStem + "asse", impSubjStem + "ássemos",
 					impSubjStem + "ásseis", impSubjStem + "assem" };
-		case DIZER:
-			break;
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1697,11 +1991,10 @@ public class ConjugatorPortuguese {
 		case FAZER:
 		case IAR:
 		case POR:
+		case DIZER:
 			return new String[] { futSubjStem, futSubjStem + "es", futSubjStem,
 					futSubjStem + "mos", futSubjStem + "des",
 					futSubjStem + "em" };
-		case DIZER:
-			break;
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1847,7 +2140,9 @@ public class ConjugatorPortuguese {
 			return new String[] { null, stem + "põe", stem + "ponha",
 					stem + "ponhamos", stem + "ponde", stem + "ponham" };
 		case DIZER:
-			break;
+			return new String[] { null, stem + "diz" /* also dize */,
+					stem + "diga", stem + "digamos", stem + "dizei",
+					stem + "digam" };
 		case CABER:
 			break;
 		case SEGUIR:
@@ -1966,10 +2261,9 @@ public class ConjugatorPortuguese {
 		case VIR:
 		case IAR:
 		case POR:
+		case DIZER:
 			return new String[] { infinitive, infinitive + "es", infinitive,
 					infinitive + "mos", infinitive + "des", infinitive + "em" };
-		case DIZER:
-			break;
 		case CABER:
 			break;
 		case SEGUIR:
