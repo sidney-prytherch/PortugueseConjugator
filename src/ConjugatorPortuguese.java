@@ -2,6 +2,7 @@
 public class ConjugatorPortuguese {
 
 	private static final String DEF = "{d}";
+	private static final String VERB = "prosseguir";
 
 	public static void main(String[] args) {
 		VerbForm[] allForms = new VerbForm[] { VerbForm.PRES_IND,
@@ -20,7 +21,7 @@ public class ConjugatorPortuguese {
 				VerbForm.PLUP_SUBJ, VerbForm.FUT_SUBJ, VerbForm.FUT_PERF_SUBJ,
 
 				VerbForm.IMP_AFF, VerbForm.IMP_NEG, VerbForm.PERS_INF };
-		String[][] conjugatedVerb = conjugate("dizer", allForms, false);
+		String[][] conjugatedVerb = conjugate(VERB, allForms, false);
 		for (int i = 0; i < conjugatedVerb.length; i++) {
 			System.out.println(allForms[i].toString());
 			for (int j = 0; j < conjugatedVerb[i].length; j++) {
@@ -321,25 +322,18 @@ public class ConjugatorPortuguese {
 			futAndCondStem = stem + "dir";
 		} else if (infinitive.matches("caber")) {
 			verbClass = VerbClass.CABER;
-			stem = "cab";
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			stem = "";
+			presSubjStem = stem + "caib";
+			impSubjStem = stem + "coub";
+			futSubjStem = stem + "couber";
 			// } else if
 			// (infinitive.matches("conseguir|perseguir|prosseguir|seguir|desconseguir|desseguir"))
 			// {
 		} else if (matches(infinitive, verbLength, "seguir")) {
 			verbClass = VerbClass.SEGUIR;
 			stem = infinitive.substring(0, verbLength - 6);
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = stem + "sig";
+			impSubjStem = stem + "segu";
 			// } else if (infinitive.matches("crer|descrer")) {
 		} else if (matches(infinitive, verbLength, "crer")) {
 			verbClass = VerbClass.CRER;
@@ -1192,9 +1186,12 @@ public class ConjugatorPortuguese {
 			return new String[] { stem + "digo", stem + "dizes", stem + "diz",
 					stem + "dizemos", stem + "dizeis", stem + "dizem" };
 		case CABER:
-			break;
+			return new String[] { "caibo", "cabes", "cabe", "cabemos", "cabeis",
+					"cabem" };
 		case SEGUIR:
-			break;
+			return new String[] { stem + "sigo", stem + "segues",
+					stem + "segue", stem + "seguimos", stem + "seguis",
+					stem + "seguem" };
 		case CRER:
 			break;
 		case COBRIR:
@@ -1334,9 +1331,12 @@ public class ConjugatorPortuguese {
 					stem + "dizia", stem + "dizíamos", stem + "dizíeis",
 					stem + "diziam" };
 		case CABER:
-			break;
+			return new String[] { "cabia", "cabias", "cabia", "cabíamos",
+					"cabíeis", "cabiam" };
 		case SEGUIR:
-			break;
+			return new String[] { stem + "seguia", stem + "seguias",
+					stem + "seguia", stem + "seguíamos", stem + "seguíeis",
+					stem + "seguiam" };
 		case CRER:
 			break;
 		case COBRIR:
@@ -1473,9 +1473,12 @@ public class ConjugatorPortuguese {
 					stem + "disse", stem + "dissemos", stem + "dissestes",
 					stem + "disseram" };
 		case CABER:
-			break;
+			return new String[] { "coube", "coubeste", "coube", "coubemos",
+					"coubestes", "couberam" };
 		case SEGUIR:
-			break;
+			return new String[] { stem + "segui", stem + "seguiste",
+					stem + "seguiu", stem + "seguimos", stem + "seguistes",
+					stem + "seguiram" };
 		case CRER:
 			break;
 		case COBRIR:
@@ -1615,9 +1618,12 @@ public class ConjugatorPortuguese {
 					stem + "dissera", stem + "disséramos", stem + "disséreis",
 					stem + "disseram" };
 		case CABER:
-			break;
+			return new String[] { "coubera", "couberas", "coubera",
+					"coubéramos", "coubéreis", "couberam" };
 		case SEGUIR:
-			break;
+			return new String[] { stem + "seguira", stem + "seguiras",
+					stem + "seguira", stem + "seguíramos", stem + "seguíreis",
+					stem + "seguiram" };
 		case CRER:
 			break;
 		case COBRIR:
@@ -1857,6 +1863,7 @@ public class ConjugatorPortuguese {
 		case OLIR:
 		case ODIR_ATIR:
 		case ABRIR:
+		case SEGUIR:
 			return new String[] { impSubjStem + "isse", impSubjStem + "isses",
 					impSubjStem + "isse", impSubjStem + "íssemos",
 					impSubjStem + "ísseis", impSubjStem + "issem" };
@@ -1865,6 +1872,7 @@ public class ConjugatorPortuguese {
 		case FAZER:
 		case POR:
 		case DIZER:
+		case CABER:
 			return new String[] { impSubjStem + "esse", impSubjStem + "esses",
 					impSubjStem + "esse", impSubjStem + "éssemos",
 					impSubjStem + "ésseis", impSubjStem + "essem" };
@@ -1872,10 +1880,6 @@ public class ConjugatorPortuguese {
 			return new String[] { impSubjStem + "asse", impSubjStem + "asses",
 					impSubjStem + "asse", impSubjStem + "ássemos",
 					impSubjStem + "ásseis", impSubjStem + "assem" };
-		case CABER:
-			break;
-		case SEGUIR:
-			break;
 		case CRER:
 			break;
 		case COBRIR:
@@ -1992,13 +1996,11 @@ public class ConjugatorPortuguese {
 		case IAR:
 		case POR:
 		case DIZER:
+		case CABER:
+		case SEGUIR:
 			return new String[] { futSubjStem, futSubjStem + "es", futSubjStem,
 					futSubjStem + "mos", futSubjStem + "des",
 					futSubjStem + "em" };
-		case CABER:
-			break;
-		case SEGUIR:
-			break;
 		case CRER:
 			break;
 		case COBRIR:
@@ -2144,9 +2146,11 @@ public class ConjugatorPortuguese {
 					stem + "diga", stem + "digamos", stem + "dizei",
 					stem + "digam" };
 		case CABER:
-			break;
+			return new String[] { null, "cabe", "caiba", "caibamos", "cabei",
+					"caibam" };
 		case SEGUIR:
-			break;
+			return new String[] { null, stem + "segue", stem + "siga",
+					stem + "sigamos", stem + "segui", stem + "sigam" };
 		case CRER:
 			break;
 		case COBRIR:
@@ -2262,12 +2266,10 @@ public class ConjugatorPortuguese {
 		case IAR:
 		case POR:
 		case DIZER:
+		case CABER:
+		case SEGUIR:
 			return new String[] { infinitive, infinitive + "es", infinitive,
 					infinitive + "mos", infinitive + "des", infinitive + "em" };
-		case CABER:
-			break;
-		case SEGUIR:
-			break;
 		case CRER:
 			break;
 		case COBRIR:
