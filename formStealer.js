@@ -259,3 +259,25 @@ function replacePrefixWithNothing(str, pref) {
         return str.replace(pref, "");
     }
 }
+
+// ODIR_ATIR, OLIR
+
+let group = `AIR, OLIR, ODIR_ATIR, ABRIR, TER, VIR, FAZER,
+IAR, POR, DIZER, CABER, SEGUIR, CRER, COBRIR, DAR, ESTAR, HAVER,
+
+GEAR, NEVAR
+
+IR, OUVIR, PERDER, PODER, PROVER, SABER,
+SER, TOSSIR, TRAZER, ENGOLIR, FUGIR, EDIR, DIVERTIR,
+SERVIR, SAUDAR, REUNIR, REMIR, 
+DORMIR, PÔR,
+
+LER, QUERER, VER, RIR, VALER, GREDIR, EDIR, ENTIR, ELIR,
+REG_AR, REG_ER, REG_IR, EAR, OIBIR, PREVENIR, ERIR,
+OER, OIAR, VESTIR, TUIR, BUIR, STRUIR, ERZIR`
+
+const table = `
+
+`;
+
+processAll(true, null, table);
