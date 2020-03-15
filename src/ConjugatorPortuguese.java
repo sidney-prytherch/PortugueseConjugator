@@ -2,7 +2,7 @@
 public class ConjugatorPortuguese {
 
 	private static final String DEF = "{d}";
-	private static final String VERB = "haver";
+	private static final String VERB = "saber";
 
 	public static void main(String[] args) {
 		VerbForm[] allForms = new VerbForm[] { VerbForm.PRES_IND,
@@ -374,12 +374,11 @@ public class ConjugatorPortuguese {
 			futSubjStem = "houver";
 		} else if (infinitive.matches("ir")) {
 			verbClass = VerbClass.IR;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			isArEndings = true;
+			isArEndingsSet = true;
+			presSubjStem = "v";
+			impSubjStem = "f";
+			futSubjStem = "for";
 		} else if (infinitive.matches("ler|reler|tresler")) {
 			verbClass = VerbClass.LER;
 			stem = infinitive.substring(0, verbLength - 3);
@@ -409,28 +408,17 @@ public class ConjugatorPortuguese {
 			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("ouvir")) {
 			verbClass = VerbClass.OUVIR;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "ouç";
+			impSubjStem = "ouv";
 		} else if (infinitive.matches("perder")) {
 			verbClass = VerbClass.PERDER;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "perc";
+			impSubjStem = "perd";
 		} else if (infinitive.matches("poder")) {
 			verbClass = VerbClass.PODER;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "poss";
+			impSubjStem = "pud";
+			futSubjStem = "puder";
 		} else if (infinitive.matches("pôr")) {
 			verbClass = VerbClass.PÔR;
 			gerund = stem + ""; // calculated if blank
@@ -450,12 +438,8 @@ public class ConjugatorPortuguese {
 			stem = infinitive.substring(0, verbLength - 3);
 		} else if (infinitive.matches("prover")) {
 			verbClass = VerbClass.PROVER;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "provej";
+			impSubjStem = "prov";
 		} else if (infinitive.matches("rir|sorrir")) {
 			verbClass = VerbClass.RIR;
 			stem = infinitive.substring(0, verbLength - 3);
@@ -467,28 +451,18 @@ public class ConjugatorPortuguese {
 			futAndCondStem = stem + ""; // infinitive by def
 		} else if (infinitive.matches("saber")) {
 			verbClass = VerbClass.SABER;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "saib";
+			impSubjStem = "soub";
+			futSubjStem = "souber";
 		} else if (infinitive.matches("ser")) {
 			verbClass = VerbClass.SER;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "sej";
+			impSubjStem = "f";
+			futSubjStem = "for";
 		} else if (infinitive.matches("tossir")) {
 			verbClass = VerbClass.TOSSIR;
-			gerund = stem + ""; // calculated if blank
-			participle = stem + ""; // calculated if blank
-			presSubjStem = stem + "";
-			impSubjStem = stem + "";
-			futSubjStem = stem + "";
-			futAndCondStem = stem + ""; // infinitive by def
+			presSubjStem = "tuss";
+			impSubjStem = "toss";
 		} else if (infinitive.matches("trazer")) {
 			verbClass = VerbClass.TRAZER;
 			gerund = stem + ""; // calculated if blank
@@ -1049,21 +1023,27 @@ public class ConjugatorPortuguese {
 					}
 					break;
 				case PRES_SUBJ:
-					if (verbClass == verbClass.DAR) {
-						verbsToReturn[i] = new String[] { presSubjStem + "ê",
-								presSubjStem + "ês", presSubjStem + "ê",
-								presSubjStem + "emos", presSubjStem + "eis",
-								presSubjStem + "eem" };
-					} else {
-						verbsToReturn[i] = new String[] {
-								presSubjStem + (isArEndings ? "e" : "a"),
-								presSubjStem + (isArEndings ? "es" : "as"),
-								presSubjStem + (isArEndings ? "e" : "a"),
-								presSubjStem + (isArEndings ? "emos" : "amos"),
-								presSubjStem + (isArEndings ? "eis" : "ais"),
-								presSubjStem + (isArEndings ? "em" : "am") };
-					}
+					verbsToReturn[i] = conjugatePresSubj(infinitive, verbClass,
+							presSubjStem);
 					break;
+//					if (verbClass == verbClass.DAR) {
+//						verbsToReturn[i] = new String[] { presSubjStem + "ê",
+//								presSubjStem + "ês", presSubjStem + "ê",
+//								presSubjStem + "emos", presSubjStem + "eis",
+//								presSubjStem + "eem" };
+//					} else if (verbClass == verbClass.IR) {
+//						verbsToReturn[i] = new String[] { "vá", "vás", "vá",
+//								"vamos", "vades", "vão" };
+//					} else {
+//						verbsToReturn[i] = new String[] {
+//								presSubjStem + (isArEndings ? "e" : "a"),
+//								presSubjStem + (isArEndings ? "es" : "as"),
+//								presSubjStem + (isArEndings ? "e" : "a"),
+//								presSubjStem + (isArEndings ? "emos" : "amos"),
+//								presSubjStem + (isArEndings ? "eis" : "ais"),
+//								presSubjStem + (isArEndings ? "em" : "am") };
+//					}
+//					break;
 				case PRES_PERF_SUBJ:
 					if (participle != null) {
 						verbsToReturn[i] = new String[] { "tenha " + participle,
@@ -1210,7 +1190,8 @@ public class ConjugatorPortuguese {
 			return new String[] { "hei", "hás", "há", "havemos", "haveis",
 					"hão" };
 		case IR:
-			break;
+			return new String[] { "vou", "vais", "vai", "vamos", "ides",
+					"vão" };
 		case LER:
 			break;
 		case QUERER:
@@ -1218,23 +1199,29 @@ public class ConjugatorPortuguese {
 		case NEVAR:
 			break;
 		case OUVIR:
-			break;
+			return new String[] { "ouço", "ouves", "ouve", "ouvimos", "ouvis",
+					"ouvem" };
 		case PERDER:
-			break;
+			return new String[] { "perco", "perdes", "perde", "perdemos",
+					"perdeis", "perdem" };
 		case PODER:
-			break;
+			return new String[] { "posso", "podes", "pode", "podemos", "podeis",
+					"podem" };
 		case VER:
 			break;
 		case PROVER:
-			break;
+			return new String[] { "provejo", "provês", "provê", "provemos",
+					"provedes", "proveem" };
 		case RIR:
 			break;
 		case SABER:
-			break;
+			return new String[] { "sei", "sabes", "sabe", "sabemos", "sabeis",
+					"sabem" };
 		case SER:
-			break;
+			return new String[] { "sou", "és", "é", "somos", "sois", "são" };
 		case TOSSIR:
-			break;
+			return new String[] { "tusso", "tosses", "tosse", "tossimos",
+					"tossis", "tossem" };
 		case TRAZER:
 			break;
 		case VALER:
@@ -1361,7 +1348,7 @@ public class ConjugatorPortuguese {
 			return new String[] { "havia", "havias", "havia", "havíamos",
 					"havíeis", "haviam" };
 		case IR:
-			break;
+			return new String[] { "ia", "ias", "ia", "íamos", "íeis", "iam" };
 		case LER:
 			break;
 		case QUERER:
@@ -1369,23 +1356,30 @@ public class ConjugatorPortuguese {
 		case NEVAR:
 			break;
 		case OUVIR:
-			break;
+			return new String[] { "ouvia", "ouvias", "ouvia", "ouvíamos",
+					"ouvíeis", "ouviam" };
 		case PERDER:
-			break;
+			return new String[] { "perdia", "perdias", "perdia", "perdíamos",
+					"perdíeis", "perdiam" };
 		case PODER:
-			break;
+			return new String[] { "podia", "podias", "podia", "podíamos",
+					"podíeis", "podiam" };
 		case VER:
 			break;
 		case PROVER:
-			break;
+			return new String[] { "provia", "provias", "provia", "províamos",
+					"províeis", "proviam" };
 		case RIR:
 			break;
 		case SABER:
-			break;
+			return new String[] { "sabia", "sabias", "sabia", "sabíamos",
+					"sabíeis", "sabiam" };
 		case SER:
-			break;
+			return new String[] { "era", "eras", "era", "éramos", "éreis",
+					"eram" };
 		case TOSSIR:
-			break;
+			return new String[] { "tossia", "tossias", "tossia", "tossíamos",
+					"tossíeis", "tossiam" };
 		case TRAZER:
 			break;
 		case VALER:
@@ -1509,7 +1503,8 @@ public class ConjugatorPortuguese {
 			return new String[] { "houve", "houveste", "houve", "houvemos",
 					"houvestes", "houveram" };
 		case IR:
-			break;
+			return new String[] { "fui", "foste", "foi", "fomos", "fostes",
+					"foram" };
 		case LER:
 			break;
 		case QUERER:
@@ -1517,23 +1512,30 @@ public class ConjugatorPortuguese {
 		case NEVAR:
 			break;
 		case OUVIR:
-			break;
+			return new String[] { "ouvi", "ouviste", "ouviu", "ouvimos",
+					"ouvistes", "ouviram" };
 		case PERDER:
-			break;
+			return new String[] { "perdi", "perdeste", "perdeu", "perdemos",
+					"perdestes", "perderam" };
 		case PODER:
-			break;
+			return new String[] { "pude", "pudeste", "pôde", "pudemos",
+					"pudestes", "puderam" };
 		case VER:
 			break;
 		case PROVER:
-			break;
+			return new String[] { "provi", "proviste", "proveu", "provemos",
+					"provestes", "proveram" };
 		case RIR:
 			break;
 		case SABER:
-			break;
+			return new String[] { "soube", "soubeste", "soube", "soubemos",
+					"soubestes", "souberam" };
 		case SER:
-			break;
+			return new String[] { "fui", "foste", "foi", "fomos", "fostes",
+					"foram" };
 		case TOSSIR:
-			break;
+			return new String[] { "tossi", "tossiste", "tossiu", "tossimos",
+					"tossistes", "tossiram" };
 		case TRAZER:
 			break;
 		case VALER:
@@ -1661,7 +1663,8 @@ public class ConjugatorPortuguese {
 			return new String[] { "houvera", "houveras", "houvera",
 					"houvéramos", "houvéreis", "houveram" };
 		case IR:
-			break;
+			return new String[] { "fora", "foras", "fora", "fôramos", "fôreis",
+					"foram" };
 		case LER:
 			break;
 		case QUERER:
@@ -1669,23 +1672,30 @@ public class ConjugatorPortuguese {
 		case NEVAR:
 			break;
 		case OUVIR:
-			break;
+			return new String[] { "ouvira", "ouviras", "ouvira", "ouvíramos",
+					"ouvíreis", "ouviram" };
 		case PERDER:
-			break;
+			return new String[] { "perdera", "perderas", "perdera",
+					"perdêramos", "perdêreis", "perderam" };
 		case PODER:
-			break;
+			return new String[] { "pudera", "puderas", "pudera", "pudéramos",
+					"pudéreis", "puderam" };
 		case VER:
 			break;
 		case PROVER:
-			break;
+			return new String[] { "provera", "proveras", "provera",
+					"provêramos", "provêreis", "proveram" };
 		case RIR:
 			break;
 		case SABER:
-			break;
+			return new String[] { "soubera", "souberas", "soubera",
+					"soubéramos", "soubéreis", "soubéram" };
 		case SER:
-			break;
+			return new String[] { "fora", "foras", "fora", "fôramos", "fôreis",
+					"foram" };
 		case TOSSIR:
-			break;
+			return new String[] { "tossira", "tossiras", "tossira",
+					"tossíramos", "tossíreis", "tossiram" };
 		case TRAZER:
 			break;
 		case VALER:
@@ -1742,134 +1752,94 @@ public class ConjugatorPortuguese {
 		return null;
 	}
 
-//	private static String[] conjugatePresSubj(String infinitive,
-//			VerbClass verbClass, String[] stems) {
-//		switch (verbClass) {
-//		case REG_AR:
-//			break;
-//		case REG_ER:
-//			break;
-//		case REG_IR:
-//			break;
-//		case AIR:
-//			break;
-//		case O_IR:
-//			break;
-//		case ABRIR:
-//			break;
-//		case TER: // s+tenh
-//			return new String[] { stems[0] + "tenha", stems[0] + "tenhas",
-//					stems[0] + "tenha", stems[0] + "tenhamos",
-//					stems[0] + "tenhais", stems[0] + "tenham" };
-//		case VIR: // s+venh
-//			return new String[] { stems[0] + "venha", stems[0] + "venhas",
-//					stems[0] + "venha", stems[0] + "venhamos",
-//					stems[0] + "venhais", stems[0] + "venham" };
-//		case FAZER:
-//			break;
-//		case IAR:
-//			break;
-//		case POR:
-//			break;
-//		case DIZER:
-//			break;
-//		case CABER:
-//			break;
-//		case SEGUIR:
-//			break;
-//		case CRER:
-//			break;
-//		case COBRIR:
-//			break;
-//		case DAR:
-//			break;
-//		case ESTAR:
-//			break;
-//		case GEAR:
-//			break;
-//		case HAVER:
-//			break;
-//		case IR:
-//			break;
-//		case LER:
-//			break;
-//		case QUERER:
-//			break;
-//		case NEVAR:
-//			break;
-//		case OUVIR:
-//			break;
-//		case PERDER:
-//			break;
-//		case PODER:
-//			break;
-//		case VER:
-//			break;
-//		case PROVER:
-//			break;
-//		case RIR:
-//			break;
-//		case SABER:
-//			break;
-//		case SER:
-//			break;
-//		case TOSSIR:
-//			break;
-//		case TRAZER:
-//			break;
-//		case VALER:
-//			break;
-//		case ENGOLIR:
-//			break;
-//		case FUGIR:
-//			break;
-//		case GREDIR:
-//			break;
-//		case EDIR:
-//			break;
-//		case DIVERTIR:
-//			break;
-//		case SERVIR:
-//			break;
-//		case ENTIR:
-//			break;
-//		case SAUDAR:
-//			break;
-//		case REUNIR:
-//			break;
-//		case ELIR:
-//			break;
-//		case REMIR:
-//			break;
-//		case EAR:
-//			break;
-//		case OIBIR:
-//			break;
-//		case PREVENIR:
-//			break;
-//		case ERIR:
-//			break;
-//		case OIAR:
-//			break;
-//		case OER:
-//			break;
-//		case VESTIR:
-//			break;
-//		case DORMIR:
-//			break;
-//		case TUIR:
-//			break;
-//		case BUIR:
-//			break;
-//		case STRUIR:
-//			break;
-//		case ERZIR:
-//			break;
-//		case PÔR:
-//			break;
-//		}
-//		return null;
-//	}
+	private static String[] conjugatePresSubj(String infinitive,
+			VerbClass verbClass, String impSubjStem) {
+		switch (verbClass) {
+		case REG_AR:
+			break;
+		case REG_ER:
+			break;
+		case REG_IR:
+			break;
+		case AIR:
+			return new String[] { impSubjStem + "sse", impSubjStem + "sses",
+					impSubjStem + "sse", impSubjStem + "ssemos",
+					impSubjStem + "sseis", impSubjStem + "ssem" };
+		case OLIR:
+		case ODIR_ATIR:
+		case ABRIR:
+		case SEGUIR:
+		case COBRIR:
+		case OUVIR:
+		case TOSSIR:
+			return new String[] { impSubjStem + "isse", impSubjStem + "isses",
+					impSubjStem + "isse", impSubjStem + "íssemos",
+					impSubjStem + "ísseis", impSubjStem + "issem" };
+		case TER: // s+tiv
+		case VIR: // s+vi
+		case FAZER:
+		case POR:
+		case DIZER:
+		case CABER:
+		case DAR:
+		case ESTAR:
+		case HAVER:
+		case PODER:
+		case LER:
+		case QUERER:
+		case NEVAR:
+		case VER:
+		case RIR:
+		case SABER:
+		case TRAZER:
+		case VALER:
+		case ENGOLIR:
+		case FUGIR:
+		case GREDIR:
+		case EDIR:
+		case DIVERTIR:
+		case SERVIR:
+		case ENTIR:
+		case SAUDAR:
+		case REUNIR:
+		case ELIR:
+		case REMIR:
+		case EAR:
+		case OIBIR:
+		case PREVENIR:
+		case ERIR:
+		case OIAR:
+		case OER:
+		case VESTIR:
+		case DORMIR:
+		case TUIR:
+		case BUIR:
+		case STRUIR:
+		case ERZIR:
+		case PÔR:
+			return new String[] { impSubjStem + "esse", impSubjStem + "esses",
+					impSubjStem + "esse", impSubjStem + "éssemos",
+					impSubjStem + "ésseis", impSubjStem + "essem" };
+		case IAR:
+			return new String[] { impSubjStem + "asse", impSubjStem + "asses",
+					impSubjStem + "asse", impSubjStem + "ássemos",
+					impSubjStem + "ásseis", impSubjStem + "assem" };
+		case CRER:
+		case PERDER:
+		case PROVER:
+			return new String[] { impSubjStem + "esse", impSubjStem + "esses",
+					impSubjStem + "esse", impSubjStem + "êssemos",
+					impSubjStem + "êsseis", impSubjStem + "essem" };
+		case GEAR:
+			break;
+		case IR:
+		case SER:
+			return new String[] { impSubjStem + "osse", impSubjStem + "osses",
+					impSubjStem + "osse", impSubjStem + "ôssemos",
+					impSubjStem + "ôsseis", impSubjStem + "ossem" };
+		}
+		return null;
+	}
 
 	private static String[] conjugateImpSubj(String infinitive,
 			VerbClass verbClass, String impSubjStem) {
@@ -1889,6 +1859,8 @@ public class ConjugatorPortuguese {
 		case ABRIR:
 		case SEGUIR:
 		case COBRIR:
+		case OUVIR:
+		case TOSSIR:
 			return new String[] { impSubjStem + "isse", impSubjStem + "isses",
 					impSubjStem + "isse", impSubjStem + "íssemos",
 					impSubjStem + "ísseis", impSubjStem + "issem" };
@@ -1901,6 +1873,39 @@ public class ConjugatorPortuguese {
 		case DAR:
 		case ESTAR:
 		case HAVER:
+		case PODER:
+		case LER:
+		case QUERER:
+		case NEVAR:
+		case VER:
+		case RIR:
+		case SABER:
+		case TRAZER:
+		case VALER:
+		case ENGOLIR:
+		case FUGIR:
+		case GREDIR:
+		case EDIR:
+		case DIVERTIR:
+		case SERVIR:
+		case ENTIR:
+		case SAUDAR:
+		case REUNIR:
+		case ELIR:
+		case REMIR:
+		case EAR:
+		case OIBIR:
+		case PREVENIR:
+		case ERIR:
+		case OIAR:
+		case OER:
+		case VESTIR:
+		case DORMIR:
+		case TUIR:
+		case BUIR:
+		case STRUIR:
+		case ERZIR:
+		case PÔR:
 			return new String[] { impSubjStem + "esse", impSubjStem + "esses",
 					impSubjStem + "esse", impSubjStem + "éssemos",
 					impSubjStem + "ésseis", impSubjStem + "essem" };
@@ -1909,89 +1914,18 @@ public class ConjugatorPortuguese {
 					impSubjStem + "asse", impSubjStem + "ássemos",
 					impSubjStem + "ásseis", impSubjStem + "assem" };
 		case CRER:
+		case PERDER:
+		case PROVER:
 			return new String[] { impSubjStem + "esse", impSubjStem + "esses",
 					impSubjStem + "esse", impSubjStem + "êssemos",
 					impSubjStem + "êsseis", impSubjStem + "essem" };
 		case GEAR:
 			break;
 		case IR:
-			break;
-		case LER:
-			break;
-		case QUERER:
-			break;
-		case NEVAR:
-			break;
-		case OUVIR:
-			break;
-		case PERDER:
-			break;
-		case PODER:
-			break;
-		case VER:
-			break;
-		case PROVER:
-			break;
-		case RIR:
-			break;
-		case SABER:
-			break;
 		case SER:
-			break;
-		case TOSSIR:
-			break;
-		case TRAZER:
-			break;
-		case VALER:
-			break;
-		case ENGOLIR:
-			break;
-		case FUGIR:
-			break;
-		case GREDIR:
-			break;
-		case EDIR:
-			break;
-		case DIVERTIR:
-			break;
-		case SERVIR:
-			break;
-		case ENTIR:
-			break;
-		case SAUDAR:
-			break;
-		case REUNIR:
-			break;
-		case ELIR:
-			break;
-		case REMIR:
-			break;
-		case EAR:
-			break;
-		case OIBIR:
-			break;
-		case PREVENIR:
-			break;
-		case ERIR:
-			break;
-		case OIAR:
-			break;
-		case OER:
-			break;
-		case VESTIR:
-			break;
-		case DORMIR:
-			break;
-		case TUIR:
-			break;
-		case BUIR:
-			break;
-		case STRUIR:
-			break;
-		case ERZIR:
-			break;
-		case PÔR:
-			break;
+			return new String[] { impSubjStem + "osse", impSubjStem + "osses",
+					impSubjStem + "osse", impSubjStem + "ôssemos",
+					impSubjStem + "ôsseis", impSubjStem + "ossem" };
 		}
 		return null;
 	}
@@ -2025,89 +1959,49 @@ public class ConjugatorPortuguese {
 		case DAR:
 		case ESTAR:
 		case HAVER:
+		case IR:
+		case OUVIR:
+		case PERDER:
+		case PODER:
+		case PROVER:
+		case GEAR:
+		case LER:
+		case QUERER:
+		case NEVAR:
+		case VER:
+		case RIR:
+		case SABER:
+		case SER:
+		case TOSSIR:
+		case TRAZER:
+		case VALER:
+		case ENGOLIR:
+		case FUGIR:
+		case GREDIR:
+		case EDIR:
+		case DIVERTIR:
+		case SERVIR:
+		case ENTIR:
+		case SAUDAR:
+		case REUNIR:
+		case ELIR:
+		case REMIR:
+		case EAR:
+		case OIBIR:
+		case PREVENIR:
+		case ERIR:
+		case OIAR:
+		case OER:
+		case VESTIR:
+		case DORMIR:
+		case TUIR:
+		case BUIR:
+		case STRUIR:
+		case ERZIR:
+		case PÔR:
 			return new String[] { futSubjStem, futSubjStem + "es", futSubjStem,
 					futSubjStem + "mos", futSubjStem + "des",
 					futSubjStem + "em" };
-		case GEAR:
-			break;
-		case IR:
-			break;
-		case LER:
-			break;
-		case QUERER:
-			break;
-		case NEVAR:
-			break;
-		case OUVIR:
-			break;
-		case PERDER:
-			break;
-		case PODER:
-			break;
-		case VER:
-			break;
-		case PROVER:
-			break;
-		case RIR:
-			break;
-		case SABER:
-			break;
-		case SER:
-			break;
-		case TOSSIR:
-			break;
-		case TRAZER:
-			break;
-		case VALER:
-			break;
-		case ENGOLIR:
-			break;
-		case FUGIR:
-			break;
-		case GREDIR:
-			break;
-		case EDIR:
-			break;
-		case DIVERTIR:
-			break;
-		case SERVIR:
-			break;
-		case ENTIR:
-			break;
-		case SAUDAR:
-			break;
-		case REUNIR:
-			break;
-		case ELIR:
-			break;
-		case REMIR:
-			break;
-		case EAR:
-			break;
-		case OIBIR:
-			break;
-		case PREVENIR:
-			break;
-		case ERIR:
-			break;
-		case OIAR:
-			break;
-		case OER:
-			break;
-		case VESTIR:
-			break;
-		case DORMIR:
-			break;
-		case TUIR:
-			break;
-		case BUIR:
-			break;
-		case STRUIR:
-			break;
-		case ERZIR:
-			break;
-		case PÔR:
-			break;
 		}
 		return null;
 	}
@@ -2186,7 +2080,7 @@ public class ConjugatorPortuguese {
 			return new String[] { null, "há", "haja", "hajamos", "havei",
 					"hajam" };
 		case IR:
-			break;
+			return new String[] { null, "vai", "vá", "vamos", "ide", "vão" };
 		case LER:
 			break;
 		case QUERER:
@@ -2194,23 +2088,30 @@ public class ConjugatorPortuguese {
 		case NEVAR:
 			break;
 		case OUVIR:
-			break;
+			return new String[] { null, "ouve", "ouça", "ouçamos", "ouvi",
+					"ouçam" };
 		case PERDER:
-			break;
+			return new String[] { null, "perde", "perca", "percamos", "perdei",
+					"percam" };
 		case PODER:
-			break;
+			return new String[] { null, "pode", "possa", "possamos", "podei",
+					"possam" };
 		case VER:
 			break;
 		case PROVER:
-			break;
+			return new String[] { null, "provê", "proveja", "provejamos",
+					"provede", "provejam" };
 		case RIR:
 			break;
 		case SABER:
-			break;
+			return new String[] { null, "sabe", "saiba", "saibamos", "sabei",
+					"saibam" };
 		case SER:
-			break;
+			return new String[] { null, "sê", "seja", "sejamos", "sede",
+					"sejam" };
 		case TOSSIR:
-			break;
+			return new String[] { null, "tosse", "tussa", "tussamos", "tossi",
+					"tussam" };
 		case TRAZER:
 			break;
 		case VALER:
@@ -2295,88 +2196,48 @@ public class ConjugatorPortuguese {
 		case DAR:
 		case ESTAR:
 		case HAVER:
+		case IR:
+		case OUVIR:
+		case PERDER:
+		case PODER:
+		case GEAR:
+		case LER:
+		case QUERER:
+		case NEVAR:
+		case VER:
+		case PROVER:
+		case RIR:
+		case SABER:
+		case SER:
+		case TOSSIR:
+		case TRAZER:
+		case VALER:
+		case ENGOLIR:
+		case FUGIR:
+		case GREDIR:
+		case EDIR:
+		case DIVERTIR:
+		case SERVIR:
+		case ENTIR:
+		case SAUDAR:
+		case REUNIR:
+		case ELIR:
+		case REMIR:
+		case EAR:
+		case OIBIR:
+		case PREVENIR:
+		case ERIR:
+		case OIAR:
+		case OER:
+		case VESTIR:
+		case DORMIR:
+		case TUIR:
+		case BUIR:
+		case STRUIR:
+		case ERZIR:
+		case PÔR:
 			return new String[] { infinitive, infinitive + "es", infinitive,
 					infinitive + "mos", infinitive + "des", infinitive + "em" };
-		case GEAR:
-			break;
-		case IR:
-			break;
-		case LER:
-			break;
-		case QUERER:
-			break;
-		case NEVAR:
-			break;
-		case OUVIR:
-			break;
-		case PERDER:
-			break;
-		case PODER:
-			break;
-		case VER:
-			break;
-		case PROVER:
-			break;
-		case RIR:
-			break;
-		case SABER:
-			break;
-		case SER:
-			break;
-		case TOSSIR:
-			break;
-		case TRAZER:
-			break;
-		case VALER:
-			break;
-		case ENGOLIR:
-			break;
-		case FUGIR:
-			break;
-		case GREDIR:
-			break;
-		case EDIR:
-			break;
-		case DIVERTIR:
-			break;
-		case SERVIR:
-			break;
-		case ENTIR:
-			break;
-		case SAUDAR:
-			break;
-		case REUNIR:
-			break;
-		case ELIR:
-			break;
-		case REMIR:
-			break;
-		case EAR:
-			break;
-		case OIBIR:
-			break;
-		case PREVENIR:
-			break;
-		case ERIR:
-			break;
-		case OIAR:
-			break;
-		case OER:
-			break;
-		case VESTIR:
-			break;
-		case DORMIR:
-			break;
-		case TUIR:
-			break;
-		case BUIR:
-			break;
-		case STRUIR:
-			break;
-		case ERZIR:
-			break;
-		case PÔR:
-			break;
 		}
 		return null;
 	}
